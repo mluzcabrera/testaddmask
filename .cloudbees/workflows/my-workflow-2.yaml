@@ -17,3 +17,12 @@ jobs:
            echo -n "hello" | cloudbees mask
            echo "=== string after masking ==="
            echo "hello world"
+      - name: Say world
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: |
+           echo "=== string before masking ==="
+           echo "hello world"
+           echo -n "world" | cloudbees mask
+           echo "=== string after masking ==="
+           echo "hello world"
