@@ -6,13 +6,4 @@ on:
   workflow_dispatch:
 
 jobs:
-  maskvalue:
-    steps:
-      - name: mask
-        uses: docker://alpine:3.18
-        run: |
-           echo "=== string before masking ==="
-           echo "hello world"
-           echo -n "hello" | cloudbees mask
-           echo "=== string after masking ==="
-           echo "hello world"
+  imagineistarttypinghereaveryveryveryverylongnameandicommit
