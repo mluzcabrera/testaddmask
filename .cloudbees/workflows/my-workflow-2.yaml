@@ -115,3 +115,4 @@ jobs:
           echo -n "${{ vars.AAA_multilineProp }}" | cloudbees mask
           echo "=== var contents after masking ==="
           echo "AAA_multilineProp ${{ vars.AAA_multilineProp }}"
+          echo "value2"
