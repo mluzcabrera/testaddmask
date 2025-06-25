@@ -102,3 +102,14 @@ jobs:
            echo -n "$job_name" | cloudbees mask
            echo "=== job_name contents after masking ==="
            echo "job_name $job_name"
+  var-mask:
+    steps:
+      - name: Var mask
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: |
+           echo "=== var contents before masking ==="
+           echo "testpropertymlcb ${{ vars.testpropertymlcb }}"
+           echo -n "${{ vars.testpropertymlcb }}" | cloudbees mask
+           echo "=== var contents after masking ==="
+           echo "testpropertymlcb ${{ vars.testpropertymlcb }}"
