@@ -160,6 +160,7 @@ jobs:
           OUTPUT2: ${{needs.prep-output.outputs.output2}}
         uses: docker://alpine:3.18
         run: |
+          echo "hello"
           echo "hello from the hive"
           echo "$OUTPUT1 $OUTPUT2"
   
