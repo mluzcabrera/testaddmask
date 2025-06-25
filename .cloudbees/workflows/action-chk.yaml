@@ -12,12 +12,17 @@ jobs:
 
   rand-action:
     steps:
-      - name: random action
+      - name: print before mask
+        uses: docker://alpine:3.18
+        id: step0
+        run: |
+          echo "${{ inputs.astring }}"
+      - name: mask
         uses: cb-nsrinivasa/rand-act@main
         id: step00
         with:
           string-val: ${{ inputs.astring }}
-      - name: print masked valu
+      - name: print after mask
         uses: docker://alpine:3.18
         id: step01
         run: |
