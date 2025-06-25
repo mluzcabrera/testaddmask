@@ -1,0 +1,24 @@
+apiVersion: automation.cloudbees.io/v1alpha1
+kind: workflow
+name: action-chk
+
+on:
+  workflow_dispatch:
+      inputs:
+        astring:
+          type: string
+      
+jobs:
+
+  rand-action:
+    steps:
+      - name: random action
+        uses: cb-nsrinivasa/rand-act@main
+        id: step00
+        with:
+          string-val: ${{ inputs.astring }}
+      - name: print masked valu
+        uses: docker://alpine:3.18
+        id: step01
+        run: |
+          echo "${{ inputs.astring }}"
