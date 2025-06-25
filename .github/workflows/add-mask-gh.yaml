@@ -1,0 +1,20 @@
+name: Manual Trigger Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  masked-job:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Mask secret in logs
+      run: |
+        # Define your secret here or use a GitHub secret
+        my_secret="super_secret_value"
+
+        # Mask the secret in the logs
+        echo "::add-mask::$my_secret"
+
+        # Print the secret (it will be masked in the logs)
+        echo "The secret is $my_secret"
