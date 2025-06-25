@@ -1,13 +1,10 @@
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: workflow
 name: My workflow
-
 on:
   workflow_dispatch:
-
 env:
   wf_name: wf-value
-
 jobs:
   simple-mask:
     steps:
@@ -15,40 +12,41 @@ jobs:
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
         run: |
-           echo "=== string before masking ==="
-           echo "hello world"
-           echo -n "hello" | cloudbees mask
-           echo "=== string after masking ==="
-           echo "hello world"
+          echo "=== string before masking ==="
+          echo "hello world"
+          echo -n "hello" | cloudbees mask
+          echo "=== string after masking ==="
+          echo "hello world"
       - name: Say world
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
         run: |
-           echo "=== string before masking ==="
-           echo "hello world"
-           echo -n "world" | cloudbees mask
-           echo "=== string after masking ==="
-           echo "hello world"
+          echo "=== string before masking ==="
+          echo "hello world"
+          echo -n "world" | cloudbees mask
+          echo "=== string after masking ==="
+          echo "hello world"
   simple-mask-again:
     steps:
       - name: Say hello
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
         run: |
-           echo "=== string before masking ==="
-           echo "hello world"
-           echo -n "hello" | cloudbees mask
-           echo "=== string after masking ==="
-           echo "hello world"
+          echo "=== string before masking ==="
+          echo "hello world"
+          echo -n "hello" | cloudbees mask
+          echo "=== string after masking ==="
+          echo "hello world"
       - name: Say world
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
         run: |
-           echo "=== string before masking ==="
-           echo "hello world"
-           echo -n "world" | cloudbees mask
-           echo "=== string after masking ==="
-           echo "hello world"
+          echo "=== string before masking ==="
+          echo "hello world"
+          echo -n "world" | cloudbees mask
+          echo "=== string after masking ==="
+          echo "hello world"
+    needs: simple-mask
   env-mask:
     env:
       job_name: job-value
@@ -58,67 +56,62 @@ jobs:
         env:
           secret_name: secret-value
         run: |
-           echo "=== env contents before masking ==="
-           echo "secret_name $secret_name"
-           echo -n "$secret_name" | cloudbees mask
-           echo "=== env contents after masking ==="
-           echo "secret_name $secret_name"
-           
-
+          echo "=== env contents before masking ==="
+          echo "secret_name $secret_name"
+          echo -n "$secret_name" | cloudbees mask
+          echo "=== env contents after masking ==="
+          echo "secret_name $secret_name"
       - name: simple variable in shell
         uses: docker://alpine:3.18
         run: |
-           second_secret="new secret"
-           echo "=== env contents before masking ==="
-           echo "second_secret $second_secret"
-           echo -n "$second_secret" | cloudbees mask
-           echo "=== env contents after masking ==="
-           echo "second_secret $second_secret"
-
+          second_secret="new secret"
+          echo "=== env contents before masking ==="
+          echo "second_secret $second_secret"
+          echo -n "$second_secret" | cloudbees mask
+          echo "=== env contents after masking ==="
+          echo "second_secret $second_secret"
       - name: dynamically generated variable value (date)
         uses: docker://alpine:3.18
         run: |
-           TODAY_ENV=$(date +'%Y-%m-%d')
-           echo "=== env contents before masking ==="
-           echo "TODAY_ENV $TODAY_ENV"
-           echo -n "$TODAY_ENV" | cloudbees mask
-           echo "=== env contents after masking ==="
-           echo "TODAY_ENV $TODAY_ENV"
-
+          TODAY_ENV=$(date +'%Y-%m-%d')
+          echo "=== env contents before masking ==="
+          echo "TODAY_ENV $TODAY_ENV"
+          echo -n "$TODAY_ENV" | cloudbees mask
+          echo "=== env contents after masking ==="
+          echo "TODAY_ENV $TODAY_ENV"
       - name: workflow env example
         uses: docker://alpine:3.18
         run: |
-           echo "=== wf_name contents before masking ==="
-           echo "wf_name $wf_name"
-           echo -n "$wf_name" | cloudbees mask
-           echo "=== wf_name contents after masking ==="
-           echo "wf_name $wf_name"
-
+          echo "=== wf_name contents before masking ==="
+          echo "wf_name $wf_name"
+          echo -n "$wf_name" | cloudbees mask
+          echo "=== wf_name contents after masking ==="
+          echo "wf_name $wf_name"
       - name: job env example
         uses: docker://alpine:3.18
         run: |
-           echo "=== job_name contents before masking ==="
-           echo "job_name $job_name"
-           echo -n "$job_name" | cloudbees mask
-           echo "=== job_name contents after masking ==="
-           echo "job_name $job_name"
+          echo "=== job_name contents before masking ==="
+          echo "job_name $job_name"
+          echo -n "$job_name" | cloudbees mask
+          echo "=== job_name contents after masking ==="
+          echo "job_name $job_name"
   var-mask:
     steps:
       - name: Var mask
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
         run: |
-           echo "=== var contents before masking ==="
-           echo "testpropertymlcb ${{ vars.testpropertymlcb }}"
-           echo -n "${{ vars.testpropertymlcb }}" | cloudbees mask
-           echo "=== var contents after masking ==="
-           echo "testpropertymlcb ${{ vars.testpropertymlcb }}"
+          echo "=== var contents before masking ==="
+          echo "testpropertymlcb ${{ vars.testpropertymlcb }}"
+          echo -n "${{ vars.testpropertymlcb }}" | cloudbees mask
+          echo "=== var contents after masking ==="
+          echo "testpropertymlcb ${{ vars.testpropertymlcb }}"
       - name: multiline Var mask
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
         run: |
-           echo "=== var contents before masking ==="
-           echo "AAA_multilineProp ${{ vars.AAA_multilineProp }}"
-           echo -n "${{ vars.AAA_multilineProp }}" | cloudbees mask
-           echo "=== var contents after masking ==="
-           echo "AAA_multilineProp ${{ vars.AAA_multilineProp }}"
+          echo "=== var contents before masking ==="
+          echo "AAA_multilineProp ${{ vars.AAA_multilineProp }}"
+          echo -n "${{ vars.AAA_multilineProp }}" | cloudbees mask
+          echo "=== var contents after masking ==="
+          echo "AAA_multilineProp ${{ vars.AAA_multilineProp }}"
