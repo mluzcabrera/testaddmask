@@ -116,6 +116,25 @@ jobs:
           echo "=== var contents after masking ==="
           echo "AAA_multilineProp ${{ vars.AAA_multilineProp }}"
           echo "value2"
+  maskfile:
+    steps:
+      - name: Add multiline string to file
+        uses: docker://alpine:3.18
+        run: |
+          cat <<EOF >> secret-for-mask.txt
+          This is line one.
+          This is line two.
+          This is line three.
+          EOF
+
+          echo "=== File contents before masking ==="
+          cat secret-for-mask.txt
+
+          cloudbees mask < secret-for-mask.txt
+
+          echo "=== File contents after masking ==="
+          cat secret-for-mask.txt
+  
   try-breaking-mask1:
     steps:
       - name: random mask
