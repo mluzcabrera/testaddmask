@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  simple-mask:
     steps:
       - name: Say hello
         uses: docker://golang:1.20.3-alpine3.17
@@ -26,7 +26,7 @@ jobs:
            echo -n "world" | cloudbees mask
            echo "=== string after masking ==="
            echo "hello world"
-  build2:
+  simple-mask-again:
     steps:
       - name: Say hello
         uses: docker://golang:1.20.3-alpine3.17
@@ -46,3 +46,36 @@ jobs:
            echo -n "world" | cloudbees mask
            echo "=== string after masking ==="
            echo "hello world"
+  env-mask:
+    steps:
+      - name: simple workflow env example
+        uses: docker://alpine:3.18
+        env:
+          secret_name: secret-value
+        run: |
+           echo "=== env contents before masking ==="
+           echo "secret_name $secret_name"
+           echo -n "$secret_name" | cloudbees mask
+           echo "=== env contents after masking ==="
+           echo "secret_name $secret_name"
+           
+
+      - name: simple variable in shell
+        uses: docker://alpine:3.18
+        run: |
+           second_secret="new secret"
+           echo "=== env contents before masking ==="
+           echo "second_secret $second_secret"
+           echo -n "$second_secret" | cloudbees mask
+           echo "=== env contents after masking ==="
+           echo "second_secret $second_secret"
+
+      - name: dynamically generated variable value (date)
+        uses: docker://alpine:3.18
+        run: |
+           TODAY_ENV=$(date +'%Y-%m-%d')
+           echo "=== env contents before masking ==="
+           echo "TODAY_ENV $TODAY_ENV"
+           echo -n "$TODAY_ENV" | cloudbees mask
+           echo "=== env contents after masking ==="
+           echo "TODAY_ENV $TODAY_ENV"
