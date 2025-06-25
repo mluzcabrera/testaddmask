@@ -135,6 +135,33 @@ jobs:
           echo "=== File contents after masking ==="
           cat secret-for-mask.txt
   
+  prep-output:
+    outputs:
+      output1: ${{ steps.step1.outputs.greeting }}
+      output2: ${{ steps.step2.outputs.greeting }}
+    steps:
+      - name: Mask hello
+        uses: docker://alpine:3.18
+        id: step0
+        run:  echo -n "hello" | cloudbees mask
+      - name: output1 prep which is hello
+        uses: docker://alpine:3.18
+        id: step1
+        run: echo "hello" > "$CLOUDBEES_OUTPUTS/greeting"
+      - name: output2 prep which is from the hive
+        uses: docker://alpine:3.18
+        id: step2
+        run: echo "from the hive" > "$CLOUDBEES_OUTPUTS/greeting"
+  use-output:
+    needs: prep-output
+    steps:
+      - env:
+          OUTPUT1: ${{needs.my-job-1.outputs.output1}}
+          OUTPUT2: ${{needs.my-job-1.outputs.output2}}
+        uses: docker://alpine:3.18
+        run: |
+          echo "hello from the hive"
+          echo "$OUTPUT1 $OUTPUT2"
   try-breaking-mask1:
     steps:
       - name: random mask
