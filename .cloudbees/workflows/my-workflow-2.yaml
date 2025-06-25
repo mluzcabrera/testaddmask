@@ -50,6 +50,8 @@ jobs:
            echo "=== string after masking ==="
            echo "hello world"
   env-mask:
+    env:
+      job_name: job-value
     steps:
       - name: simple workflow env example
         uses: docker://alpine:3.18
@@ -91,3 +93,12 @@ jobs:
            echo -n "$wf_name" | cloudbees mask
            echo "=== wf_name contents after masking ==="
            echo "wf_name $wf_name"
+
+      - name: job env example
+        uses: docker://alpine:3.18
+        run: |
+           echo "=== job_name contents before masking ==="
+           echo "job_name $job_name"
+           echo -n "$job_name" | cloudbees mask
+           echo "=== job_name contents after masking ==="
+           echo "job_name $job_name"
