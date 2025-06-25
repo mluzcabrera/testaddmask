@@ -116,11 +116,18 @@ jobs:
           echo "=== var contents after masking ==="
           echo "AAA_multilineProp ${{ vars.AAA_multilineProp }}"
           echo "value2"
-  random-mask:
+  try-breaking-mask1:
     steps:
       - name: random mask
         uses: docker://golang:1.20.3-alpine3.17
         shell: sh
         run: |
           cloudbees mask
+  try-breaking-mask2:
+    steps:
+      - name: random mask
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: |
+          echo -n "$nonexist" | cloudbees mask
           
