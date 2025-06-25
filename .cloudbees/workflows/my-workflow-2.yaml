@@ -5,6 +5,9 @@ name: My workflow
 on:
   workflow_dispatch:
 
+env:
+  wf_name: wf-value
+
 jobs:
   simple-mask:
     steps:
@@ -79,3 +82,12 @@ jobs:
            echo -n "$TODAY_ENV" | cloudbees mask
            echo "=== env contents after masking ==="
            echo "TODAY_ENV $TODAY_ENV"
+
+      - name: workflow env example
+        uses: docker://alpine:3.18
+        run: |
+           echo "=== wf_name contents before masking ==="
+           echo "wf_name $wf_name"
+           echo -n "$wf_name" | cloudbees mask
+           echo "=== wf_name contents after masking ==="
+           echo "wf_name $wf_name"
