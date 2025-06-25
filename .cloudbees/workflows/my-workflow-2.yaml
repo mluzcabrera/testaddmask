@@ -113,3 +113,12 @@ jobs:
            echo -n "${{ vars.testpropertymlcb }}" | cloudbees mask
            echo "=== var contents after masking ==="
            echo "testpropertymlcb ${{ vars.testpropertymlcb }}"
+      - name: multiline Var mask
+        uses: docker://golang:1.20.3-alpine3.17
+        shell: sh
+        run: |
+           echo "=== var contents before masking ==="
+           echo "AAA_multilineProp ${{ vars.AAA_multilineProp }}"
+           echo -n "${{ vars.AAA_multilineProp }}" | cloudbees mask
+           echo "=== var contents after masking ==="
+           echo "AAA_multilineProp ${{ vars.AAA_multilineProp }}"
