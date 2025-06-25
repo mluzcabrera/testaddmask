@@ -18,3 +18,8 @@ jobs:
 
         # Print the secret (it will be masked in the logs)
         echo "The secret is $my_secret"
+
+    - name: Mask nothing
+      run: |
+        # Mask the secret in the logs
+        echo "::add-mask::"
