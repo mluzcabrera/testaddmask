@@ -163,4 +163,10 @@ jobs:
 
           echo "=== File contents after masking ==="
           cat secret-for-mask.txt
+  try-breaking-mask4:
+    steps:
+      - name: Add multiline string to file
+        uses: docker://alpine:3.18
+        run: |
+          cloudbees mask < secret-for-mask-does-not-exist.txt
           
